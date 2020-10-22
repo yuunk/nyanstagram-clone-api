@@ -5,7 +5,7 @@
 
     AuthUserFile /app/.htpasswd
     AuthType Basic
-    AuthName “Restricted Access”
+    AuthName "Restricted Access"
     Require valid-user
 
     RewriteEngine On
