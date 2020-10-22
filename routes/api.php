@@ -18,6 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['api']], function () {
-    Route::post('/signup', 'Api\UserController@signup');
-    Route::get('/hoge', 'Api\UserController@index');
+    Route::post('/signup', 'api\UserController@signup');
+    Route::get('/hoge', 'api\UserController@index');
 });
