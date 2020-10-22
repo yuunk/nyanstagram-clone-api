@@ -19,14 +19,20 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
+    public static $rules = array(
+        'name' => 'required',
+        'email' => 'required',
+        'password' => 'min:8|max:20'
+    );
+
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    // protected $hidden = [
+    //     'password', 'remember_token',
+    // ];
 
     /**
      * The attributes that should be cast to native types.
