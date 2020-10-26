@@ -36,7 +36,7 @@ class SignupRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.integer' => '整数で指定してください．',
+            'name.required' => '名前は必須',
             'email.required' => 'emailは必須です',
             'email.unique' => '登録済みです',
             'password.min' => '8より多く',

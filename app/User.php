@@ -39,6 +39,8 @@ class User extends Authenticatable
 
             $user->api_token = $token;
 
+            $user->save();
+
             return $token;
 
         } else {
@@ -54,6 +56,18 @@ class User extends Authenticatable
 
     public static function checkPassword($password) {
 
+    }
+
+    public static function checkToken($request) {
+        $user = User::where('email', $request->email)
+            ->where('api_token', $request->loginToken)
+            ->first();
+
+        if ($user) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

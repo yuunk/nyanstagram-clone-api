@@ -14,7 +14,6 @@ class UserController extends Controller
     //
     public function signup(SignupRequest $request) {
 
-
         $value = $request->all();
 
         $user = new User();
@@ -29,5 +28,15 @@ class UserController extends Controller
         $response = User::checkUser($request);
 
         return $response;
+    }
+
+    public function check(Request $request) {
+
+        if (User::checkToken($request)) {
+            return 'true';
+        } else {
+            return 'false';
+        }
+
     }
 }
