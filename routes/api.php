@@ -21,4 +21,5 @@ Route::group(['middleware' => ['api']], function () {
     Route::post('/signup', 'api\UserController@signup');
     Route::post('/login', 'api\UserController@login');
     Route::post('/user/check', 'api\UserController@check');
+    Route::post('/user/logout', 'api\UserController@logout');
 });

@@ -39,4 +39,13 @@ class UserController extends Controller
         }
 
     }
+
+    public function logout(Request $request) {
+
+        $user = User::where('email', $request->email)->first();
+
+        $user->api_token = '';
+        $user->save();
+
+    }
 }
