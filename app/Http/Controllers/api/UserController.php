@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\SignupRequest;
+// use App\Http\Controllers\Auth\RegisterController;
+use Illuminate\Support\Facades\Hash;
 
 use App\User;
 
@@ -18,6 +20,17 @@ class UserController extends Controller
 
         $user = new User();
 
+
+        // return User::create([
+        //     'name' => $request['name'],
+        //     'email' => $request['email'],
+        //     'password' => Hash::make($request['password']),
+        // ]);
+        $value = [
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password'])
+        ];
         $user->fill($value)->save();
 
         return 'sucess';
