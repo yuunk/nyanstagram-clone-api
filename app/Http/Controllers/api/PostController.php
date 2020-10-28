@@ -7,11 +7,22 @@ use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Post;
+use App\User;
 
 class PostController extends Controller
 {
     //
-    public function index(PostRequest $request) 
+
+    public function index()
+    {
+        $posts = Post::all();
+
+        $posts = Post::select(['users.name', 'posts.title', 'posts.updated_at', 'posts.id'])->join('users', 'users.id', '=', 'posts.user_id')->get();
+
+        return $posts;
+    }
+
+    public function new(PostRequest $request) 
     {
         $authUser = Auth::user();
         if ($authUser) {
