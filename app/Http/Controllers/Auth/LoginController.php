@@ -65,4 +65,9 @@ class LoginController extends Controller
             'expires_in' => auth()->factory()->getTTL() * 60
         ]);
     }
+
+    public function checkUser()
+    {
+        return response()->json(auth()->user()->name);
+    }
 }

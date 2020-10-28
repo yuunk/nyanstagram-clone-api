@@ -24,5 +24,6 @@ Route::group(['middleware' => ['api']], function () {
     Route::post('/auth/login', 'Auth\LoginController@login')->name('login');
 
     Route::group(['middleware' => ['jwt.auth']], function () {
+        Route::get('/auth/user', 'Auth\LoginController@checkUser');
     });
 });
