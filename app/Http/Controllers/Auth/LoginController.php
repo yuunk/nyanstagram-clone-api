@@ -57,6 +57,12 @@ class LoginController extends Controller
         return $this->respondWithToken($token);
     }
 
+    public function logout()
+    {
+        auth()->logout();
+        return response()->json(['message' => 'logout']);
+    }
+
     protected function respondWithToken($token)
     {
         return response()->json([

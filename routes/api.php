@@ -25,5 +25,6 @@ Route::group(['middleware' => ['api']], function () {
 
     Route::group(['middleware' => ['jwt.auth']], function () {
         Route::get('/auth/user', 'Auth\LoginController@checkUser');
+        Route::get('/auth/logout', 'Auth\LoginController@logout');
     });
 });
