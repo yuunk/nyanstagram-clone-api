@@ -28,8 +28,14 @@ Route::group(['middleware' => ['api']], function () {
     Route::get('/post/{id?}', 'api\PostController@show');
     Route::post('/post/new', 'api\PostController@new');
 
+
+
     Route::group(['middleware' => ['jwt.auth']], function () {
         Route::get('/auth/user', 'Auth\LoginController@checkUser');
         Route::get('/auth/logout', 'Auth\LoginController@logout');
+        // favorite
+        Route::get('/favorite/{id?}', 'api\FavoriteController@update');
+        Route::get('/favorite/{id?}', 'api\FavoriteController@update');
+        Route::get('/favorite/fetch/{id?}', 'api\FavoriteController@fetch');
     });
 });
