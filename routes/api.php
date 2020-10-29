@@ -33,6 +33,9 @@ Route::group(['middleware' => ['api']], function () {
     Route::group(['middleware' => ['jwt.auth']], function () {
         Route::get('/auth/user', 'Auth\LoginController@checkUser');
         Route::get('/auth/logout', 'Auth\LoginController@logout');
+
+        Route::get('/favorite/post', 'api\favoriteController@index');
+
         // favorite
         Route::get('/favorite/{id?}', 'api\FavoriteController@update');
         Route::get('/favorite/{id?}', 'api\FavoriteController@update');

@@ -7,9 +7,26 @@ use Illuminate\Http\Request;
 use App\Http\Requests\FavoriteRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Favorite;
+use App\Post;
+use App\User;
 
 class FavoriteController extends Controller
 {
+
+    public function index()
+    {
+        $userId = Auth::user()->id;
+
+        $posts = Favorite::select(['posts.id', 'posts.title', 'posts.text','posts.updated_at', 'users.name'])
+                    //  ->select(['users.name', 'posts.title'])
+                        ->join('users', 'users.id', '=', 'favorites.user_id')
+                        ->join('posts', 'posts.id', '=', 'favorites.post_id')
+                        ->where('favorites.user_id', $userId)
+                        ->get();
+
+        return $posts;
+    }
+
     //
     public function update($id)
     {
