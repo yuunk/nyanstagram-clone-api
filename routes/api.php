@@ -25,6 +25,7 @@ Route::group(['middleware' => ['api']], function () {
 
     // post
     Route::get('/post', 'api\PostController@index');
+    Route::get('/post/{id?}', 'api\PostController@show');
     Route::post('/post/new', 'api\PostController@new');
 
     Route::group(['middleware' => ['jwt.auth']], function () {

@@ -40,4 +40,11 @@ class PostController extends Controller
             return 'hoge';
         }
     }
+
+    public function show($id)
+    {
+        $post = Post::select(['users.name', 'posts.title', 'posts.text', 'posts.updated_at'])->join('users', 'users.id', '=', 'posts.user_id')->find($id);
+
+        return response()->json($post);
+    }
 }
