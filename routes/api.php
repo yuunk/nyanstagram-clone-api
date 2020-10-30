@@ -43,5 +43,6 @@ Route::group(['middleware' => ['api']], function () {
 
         // profile
         Route::get('/profile/fetch', 'api\ProfileController@fetch');
+        Route::post('/profile/update', 'api\ProfileController@update');
     });
 });

@@ -26,4 +26,29 @@ class ProfileController extends Controller
             return $profile;
         }
     }
+
+    public function update(Request $request) {
+        $userId = Auth::user()->id;
+
+        $currentProfile = Profile::where('user_id', $userId)->first();
+        $profile = Profile::find($currentProfile->id);
+        $profile->text = $request->text;
+        $profile->save();
+
+        $user = User::find($userId);
+        $user->name = $request->name;
+        $user->save();
+
+        $response = User::select(['users.name', 'profiles.text'])
+                            ->join('profiles', 'profiles.user_id', '=', 'users.id')
+                            ->where('users.id', $userId)
+                                ->first();
+
+        if ($response == null) {
+            return 'false';
+        } else {
+            return $response;
+        }
+
+    }
 }
