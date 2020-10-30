@@ -10,6 +10,7 @@ use App\Http\Requests\SignupRequest;
 use Illuminate\Support\Facades\Hash;
 
 use App\User;
+use App\Profile;
 
 class UserController extends Controller
 {
@@ -20,18 +21,19 @@ class UserController extends Controller
 
         $user = new User();
 
-
-        // return User::create([
-        //     'name' => $request['name'],
-        //     'email' => $request['email'],
-        //     'password' => Hash::make($request['password']),
-        // ]);
         $value = [
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password'])
         ];
         $user->fill($value)->save();
+
+        $profile = new Profile();
+        $value = [
+            'user_id' => $user->id,
+            'text' => '',
+        ];
+        $profile->fill($value)->save();
 
         return 'sucess';
     }

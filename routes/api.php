@@ -40,5 +40,8 @@ Route::group(['middleware' => ['api']], function () {
         Route::get('/favorite/{id?}', 'api\FavoriteController@update');
         Route::get('/favorite/{id?}', 'api\FavoriteController@update');
         Route::get('/favorite/fetch/{id?}', 'api\FavoriteController@fetch');
+
+        // profile
+        Route::get('/profile/fetch', 'api\ProfileController@fetch');
     });
 });
