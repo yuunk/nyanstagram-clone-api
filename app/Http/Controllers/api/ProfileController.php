@@ -12,8 +12,14 @@ use App\User;
 class ProfileController extends Controller
 {
     //
-    public function fetch() {
-        $userId = Auth::user()->id;
+    public function fetch($id = null) {
+        $userId = '';
+
+        if ($id) {
+            $userId = $id;
+        } else {
+            $userId = Auth::user()->id;
+        }
 
         $profile = User::select(['users.name', 'profiles.text'])
                                 ->join('profiles', 'profiles.user_id', '=', 'users.id')
