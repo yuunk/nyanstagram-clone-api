@@ -31,7 +31,7 @@ class ProfileController extends Controller
         if ($profile == null) {
             return 'false';
         } else {
-            return $profile;
+            return ['profile' => $profile, 'userId' => $userId] ;
         }
     }
 

@@ -13,13 +13,20 @@ class PostController extends Controller
 {
     //
 
-    public function index()
+    public function index($id = null)
     {
-        $posts = Post::all();
 
-        $posts = Post::select(['users.name', 'posts.title', 'posts.updated_at', 'posts.id'])->join('users', 'users.id', '=', 'posts.user_id')->get();
+        $response = [];
 
-        return $posts;
+        if ($id != null) {
+            $response =
+            Post::select(['users.name', 'posts.title', 'posts.updated_at', 'posts.id'])->join('users', 'users.id', '=', 'posts.user_id')->where('users.id', $id)->get();
+        } else {
+            $response =
+            Post::select(['users.name', 'posts.title', 'posts.updated_at', 'posts.id'])->join('users', 'users.id', '=', 'posts.user_id')->get();
+        }
+
+        return $response;
     }
 
     public function new(PostRequest $request) 
