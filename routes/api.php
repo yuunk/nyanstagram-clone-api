@@ -25,7 +25,6 @@ Route::group(['middleware' => ['api']], function () {
 
     // post
     Route::get('/post', 'api\PostController@index');
-    Route::get('/post/{id?}', 'api\PostController@show');
     Route::post('/post/new', 'api\PostController@new');
 
 
@@ -33,6 +32,8 @@ Route::group(['middleware' => ['api']], function () {
     Route::group(['middleware' => ['jwt.auth']], function () {
         Route::get('/auth/user', 'Auth\LoginController@checkUser');
         Route::get('/auth/logout', 'Auth\LoginController@logout');
+        
+        Route::get('/post/{id?}', 'api\PostController@show');
 
         Route::get('/favorite/post', 'api\favoriteController@index');
 
@@ -47,6 +48,7 @@ Route::group(['middleware' => ['api']], function () {
         Route::post('/profile/update', 'api\ProfileController@update');
 
         // follower
+        Route::post('/follower/fetch', 'api\FollowerController@fetch');
         Route::post('/follower/update', 'api\FollowerController@update');
     });
 });

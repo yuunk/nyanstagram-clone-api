@@ -9,6 +9,19 @@ use App\Follower;
 
 class FollowerController extends Controller
 {
+    public function fetch(Request $request)
+    {
+        $loginUserId = Auth::user()->id;
+        $profileUserId = $request->profileUserId;
+
+        $follower = new Follower();
+
+        if ($follower->isAlready($loginUserId, $profileUserId)) {
+            return ['follow' => true];
+        } else {
+            return ['follow' => false];
+        }
+    }
     //
     public function update(Request $request)
     {

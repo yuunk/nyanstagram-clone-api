@@ -45,7 +45,22 @@ class PostController extends Controller
     {
         $post = Post::select(['users.id', 'users.name', 'posts.title', 'posts.text', 'posts.updated_at'])->join('users', 'users.id', '=', 'posts.user_id')->find($id);
 
-        return response()->json($post);
+        $authUser = Auth::user();
+
+        $response = ['post' => $post, 'isMine' => false];
+
+        if ($authUser) {
+
+            $authUserPost = Post::where('user_id', $authUser->id)->get();
+
+            if (!$authUserPost->isEmpty()) {
+                $response = ['post' => $post, 'isMine' => true];
+            }
+
+        }
+
+        return $response;
+        // return response()->json($post);
     }
 
 }
