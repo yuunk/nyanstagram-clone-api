@@ -51,7 +51,7 @@ class PostController extends Controller
 
         if ($authUser) {
 
-            $authUserPost = Post::where('user_id', $authUser->id)->get();
+            $authUserPost = Post::where('user_id', $authUser->id)->where('id', $id)->get();
 
             if (!$authUserPost->isEmpty()) {
                 $response = ['post' => $post, 'isMine' => true];

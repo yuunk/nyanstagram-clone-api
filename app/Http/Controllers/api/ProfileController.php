@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Follower;
+use App\Post;
 use App\Profile;
 use App\User;
 
@@ -56,5 +58,23 @@ class ProfileController extends Controller
             return $response;
         }
 
+    }
+
+    public function record($id = null) {
+
+        $loginUserId = Auth::user()->id;
+        $userId = null;
+
+        if ($id == null && $loginUserId) {
+            $userId = $loginUserId;
+        } else {
+            $userId = $id;
+        }
+
+        $userPosts = Post::where('user_id', $userId)->count();
+        $followerCount = Follower::where('follower_id', $userId)->count();
+        $followCount = Follower::where('followed_id', $userId)->count();
+
+        return ['userPosts' => $userPosts, 'follower' => $followerCount, 'follow' => $followCount];
     }
 }
