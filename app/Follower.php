@@ -42,4 +42,9 @@ class Follower extends Model
         $follower->fill($value)->save();
     }
 
+    public function pullFollowerUsers()
+    {
+        
+    }
+
 }

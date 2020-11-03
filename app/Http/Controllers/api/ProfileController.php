@@ -35,6 +35,18 @@ class ProfileController extends Controller
         $followerCount = Follower::where('followed_id', $userId)->count();
         $followCount = Follower::where('follower_id', $userId)->count();
 
+        // follower
+        $followerUsers = Follower::select(['users.id', 'users.name'])
+        ->join('users', 'users.id', '=', 'followers.follower_id')
+        ->where('followers.followed_id', $userId)
+        ->get();
+
+        // follow
+        $followUsers = Follower::select(['users.id', 'users.name'])
+        ->join('users', 'users.id', '=', 'followers.followed_id')
+        ->where('followers.follower_id', $userId)
+        ->get();
+
         return [
             'userId' => $userId,
             'profile' => $profile,
@@ -43,29 +55,12 @@ class ProfileController extends Controller
                 'follower' => $followerCount,
                 'follow' => $followCount
             ],
+            'followPanel' => [
+                'followerUsers' => $followerUsers,
+                'followUsers' => $followUsers
+            ]
         ];
     }
-
-    // public function fetch($id = null) {
-    //     $userId = '';
-
-    //     if ($id) {
-    //         $userId = $id;
-    //     } else {
-    //         $userId = Auth::user()->id;
-    //     }
-
-    //     $profile = User::select(['users.name', 'profiles.text'])
-    //                             ->join('profiles', 'profiles.user_id', '=', 'users.id')
-    //                             ->where('users.id', $userId)
-    //                             ->first();
-        
-    //     if ($profile == null) {
-    //         return 'false';
-    //     } else {
-    //         return ['profile' => $profile, 'userId' => $userId] ;
-    //     }
-    // }
 
     public function update(Request $request) {
         $userId = Auth::user()->id;
