@@ -43,10 +43,10 @@ Route::group(['middleware' => ['api']], function () {
         Route::get('/favorite/fetch/{id?}', 'api\FavoriteController@fetch');
 
         // profile
-        Route::get('/profile/fetch/{id?}', 'api\ProfileController@fetch');
-        Route::get('/profile/fetch', 'api\ProfileController@fetch');
         Route::post('/profile/update', 'api\ProfileController@update');
         Route::get('/profile/record/{id?}', 'api\ProfileController@record');
+        Route::get('/profile/init/{id?}', 'api\ProfileController@init');
+        Route::get('/profile/init', 'api\ProfileController@init');
 
         // follower
         Route::post('/follower/fetch', 'api\FollowerController@fetch');

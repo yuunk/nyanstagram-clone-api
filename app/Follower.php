@@ -13,7 +13,7 @@ class Follower extends Model
         'follower_id'
     ];
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     public static function updateFollower($userId, $postId)
     {

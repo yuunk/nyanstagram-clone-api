@@ -14,7 +14,8 @@ use App\User;
 class ProfileController extends Controller
 {
     //
-    public function fetch($id = null) {
+    public function init($id = null)
+    {
         $userId = '';
 
         if ($id) {
@@ -23,17 +24,48 @@ class ProfileController extends Controller
             $userId = Auth::user()->id;
         }
 
+        // profile
         $profile = User::select(['users.name', 'profiles.text'])
-                                ->join('profiles', 'profiles.user_id', '=', 'users.id')
-                                ->where('users.id', $userId)
-                                ->first();
-        
-        if ($profile == null) {
-            return 'false';
-        } else {
-            return ['profile' => $profile, 'userId' => $userId] ;
-        }
+        ->join('profiles', 'profiles.user_id', '=', 'users.id')
+        ->where('users.id', $userId)
+            ->first();
+
+        // record
+        $userPosts = Post::where('user_id', $userId)->count();
+        $followerCount = Follower::where('followed_id', $userId)->count();
+        $followCount = Follower::where('follower_id', $userId)->count();
+
+        return [
+            'userId' => $userId,
+            'profile' => $profile,
+            'record' => [
+                'userPosts' => $userPosts,
+                'follower' => $followerCount,
+                'follow' => $followCount
+            ],
+        ];
     }
+
+    // public function fetch($id = null) {
+    //     $userId = '';
+
+    //     if ($id) {
+    //         $userId = $id;
+    //     } else {
+    //         $userId = Auth::user()->id;
+    //     }
+
+    //     $profile = User::select(['users.name', 'profiles.text'])
+    //                             ->join('profiles', 'profiles.user_id', '=', 'users.id')
+    //                             ->where('users.id', $userId)
+    //                             ->first();
+        
+    //     if ($profile == null) {
+    //         return 'false';
+    //     } else {
+    //         return ['profile' => $profile, 'userId' => $userId] ;
+    //     }
+    // }
 
     public function update(Request $request) {
         $userId = Auth::user()->id;
@@ -72,9 +104,9 @@ class ProfileController extends Controller
         }
 
         $userPosts = Post::where('user_id', $userId)->count();
-        $followerCount = Follower::where('follower_id', $userId)->count();
-        $followCount = Follower::where('followed_id', $userId)->count();
-
+        $followerCount = Follower::where('followed_id', $userId)->count();
+        $followCount = Follower::where('follower_id', $userId)->count();
+        
         return ['userPosts' => $userPosts, 'follower' => $followerCount, 'follow' => $followCount];
     }
 }
